@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.vertx.vertx-plugin' version '1.2.0'
+}
+
+group 'com.abc'
+version '0.1'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+configurations.all {
+    exclude module: 'netty-all'
+}
+
+ext {
+    vertxVersion = '3.9.9'
+}
+
+dependencies {
+    implementation "io.vertx:vertx-jdbc-client:${vertxVersion}"
+}
+
+mainClassName = "com.abc.Main"
+
+vertx {
+    mainVerticle = 'com.abc.Main'
+    vertxVersion = "${project.ext.vertxVersion}"
+//    config = "src/main/conf/conf-${project.ext.appEnviroment}.json"
+//    jvmArgs = [
+//            "-Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.SLF4JLogDelegateFactory",
+//            "-Dlogback.configurationFile=${logbackFile}",
+//            "-Dvertx.options.maxWorkerExecuteTime=1800000000000"
+//    ]
+}
